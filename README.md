@@ -8,10 +8,13 @@ Instructions on how to build/run the Bouncing Balls project.
 
 Tests
 -----
-Instructions on how to run the tests.
+Tests can be run from the root directory with the command
+> npm test
 
 Dependencies
 ------------
 The following dependencies were used in creating this project:
 
  - **Webpack** - Webpack is used to bundle all the required Javascript files into a single bundle.
+ - **Mocha** - A Javascript unit testing framework.
+ - **Chai** - A Javascript assertion library for testing.
