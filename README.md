@@ -14,4 +14,4 @@ Dependencies
 ------------
 The following dependencies were used in creating this project:
 
- - **Example Dependency** - Description of what the dependency does/why it's used.
+ - **Webpack** - Webpack is used to bundle all the required Javascript files into a single bundle.

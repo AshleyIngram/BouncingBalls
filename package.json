@@ -1,0 +1,19 @@
+{
+  "name": "BouncingBalls",
+  "version": "1.0.0",
+  "description": "Implementation of Bouncing Balls interview for H4",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ashley Ingram",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
