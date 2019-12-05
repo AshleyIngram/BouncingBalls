@@ -1,0 +1,26 @@
+{
+  "name": "BouncingBalls",
+  "version": "1.0.0",
+  "description": "Implementation of Bouncing Balls interview for H4",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha-webpack \"test/**/*.js\" || true",
+    "build": "webpack || true"
+  },
+  "keywords": [],
+  "author": "Ashley Ingram",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.7.2",
+    "eslint-config-google": "^0.14.0",
+    "eslint-loader": "^3.0.2",
+    "mocha": "^6.2.2",
+    "mocha-webpack": "^2.0.0-beta.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
