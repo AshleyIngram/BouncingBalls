@@ -66,6 +66,21 @@ export default class Scene {
     return adjustedY;
   }
 
+  /**
+   * Get the dimensions of the scene
+   * @return {object} An object representing the top/left/right/bottom
+   * of the scene
+   */
+  getDimensions() {
+    const rect = this.canvas.getBoundingClientRect();
+
+    return {
+      top: rect.top,
+      left: rect.left,
+      right: rect.right,
+      bottom: rect.bottom,
+    };
+  }
 
   /**
    * Clear the canvas. Used to ensure there aren't
