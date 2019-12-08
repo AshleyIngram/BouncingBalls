@@ -25,7 +25,7 @@ export default class Ball {
     this.xDiff = this.velocity * Math.cos(Ball.degreesToRadians(this.angle));
     this.yDiff = this.velocity * Math.sin(Ball.degreesToRadians(this.angle));
     this.gravity = 0.3;
-    this.dampeningFactor = 0.8;
+    this.mass = 0.8;
   }
 
   /**
@@ -56,15 +56,15 @@ export default class Ball {
     if (this.x <= boundaries.left + this.radius && this.xDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.left + this.radius;
-      this.xDiff = -this.xDiff * this.dampeningFactor;
-      this.yDiff *= this.dampeningFactor;
+      this.xDiff = -this.xDiff * this.mass;
+      this.yDiff *= this.mass;
     }
 
     if (this.x >= boundaries.right - this.radius && this.xDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.right - this.radius;
-      this.xDiff = -this.xDiff * this.dampeningFactor;
-      this.yDiff *= this.dampeningFactor;
+      this.xDiff = -this.xDiff * this.mass;
+      this.yDiff *= this.mass;
     }
   }
 
@@ -78,15 +78,62 @@ export default class Ball {
     if (this.y <= boundaries.top + this.radius && this.yDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.top + this.radius;
-      this.yDiff = -this.yDiff * this.dampeningFactor;
-      this.xDiff *= this.dampeningFactor;
+      this.yDiff = -this.yDiff * this.mass;
+      this.xDiff *= this.mass;
     }
 
     if (this.y >= boundaries.bottom - this.radius && this.yDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.bottom - this.radius;
-      this.yDiff = -this.yDiff * this.dampeningFactor;
-      this.xDiff *= this.dampeningFactor;
+      this.yDiff = -this.yDiff * this.mass;
+      this.xDiff *= this.mass;
+    }
+  }
+
+  /**
+   * Calculate an updated velocity based on initial velocity and
+   * mass of 2 balls using elastic collision (aka no loss of velocity).
+   * @param {number} b1Velocity The velocity of ball 1
+   * @param {number} b2Velocity The velocity of ball 2
+   * @param {number} b1Mass The mass of ball 1
+   * @param {number} b2Mass The mass of ball 2
+   * @return {number} New velocity for ball 1
+   */
+  static elasticCollision(b1Velocity, b2Velocity, b1Mass, b2Mass) {
+    // more readable on one line
+    // eslint-disable-next-line max-len
+    return (b1Velocity * (b1Mass - b2Mass) + (2 * b2Mass * b2Velocity)) / (b1Mass + b2Mass);
+  }
+
+  /**
+   * Check if the ball is colliding with another ball.
+   * If it is, handle it by deflecting away.
+   * @param {Ball} otherBall Another ball which may be
+   * colliding with the current one.
+   */
+  handleCollision(otherBall) {
+    const xDistance = Math.pow(otherBall.x - this.x, 2);
+    const yDistance = Math.pow(otherBall.y - this.y, 2);
+    const centerDistance = xDistance + yDistance;
+    const sumOfRadii = Math.pow(otherBall.radius + this.radius, 2);
+
+    if (centerDistance <= sumOfRadii) {
+      // Reset this ball to the position before the collision
+      // otherwise balls will get stuck together!
+      this.x -= this.xDiff;
+      this.y -= this.yDiff;
+
+      this.xDiff = Ball.elasticCollision(
+          this.xDiff, otherBall.xDiff, this.mass, otherBall.mass);
+      this.yDiff = Ball.elasticCollision(
+          this.yDiff, otherBall.yDiff, this.mass, otherBall.mass);
+
+      // Redirect the other ball too. We won't perform collision detection
+      // for the same 2 balls twice, so we need to make sure it moves too
+      otherBall.xDiff = Ball.elasticCollision(
+          otherBall.xDiff, this.xDiff, otherBall.mass, this.mass);
+      otherBall.yDiff = Ball.elasticCollision(
+          otherBall.yDiff, this.yDiff, otherBall.mass, this.mass);
     }
   }
 
