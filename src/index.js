@@ -17,7 +17,9 @@ class BouncingBallApplication {
     this.balls = [];
 
     canvas.addEventListener('click', (evt) => {
-      const ball = new Ball(scene, evt.clientX, evt.clientY, 10, 10);
+      const angle = Math.random() * 360;
+      const velocity = Math.random() * 30;
+      const ball = new Ball(scene, evt.clientX, evt.clientY, angle, velocity);
       this.balls.push(ball);
     });
 
