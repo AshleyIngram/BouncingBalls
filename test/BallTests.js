@@ -68,16 +68,34 @@ describe('Horizonal Collision', () => {
 
     ball.handleHorizontalBoundaryCollision();
 
-    expect(ball.xDiff).to.equal(-10);
+    expect(ball.xDiff).to.equal(-8);
   });
 
-  it('should not reverse trajectory when the ball hits the left wall, and has reversed', () => {
+  it('should detect collision when the ball is partially over the right wall', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 95, 50, 0, 10);
+
+    ball.handleHorizontalBoundaryCollision();
+
+    expect(ball.xDiff).to.equal(-8);
+  });
+
+  it('should not reverse trajectory when the ball hits the right wall, and has reversed', () => {
     const scene = helpers.getMockScene(0, 100, 0, 100);
     const ball = new Ball(scene, 100, 50, 0, -10);
 
     ball.handleHorizontalBoundaryCollision();
 
     expect(ball.xDiff).to.equal(-10);
+  });
+
+  it('should slow velocity on both axis on right wall collision', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 100, 50, 90, 10);
+
+    ball.handleHorizontalBoundaryCollision();
+
+    expect(ball.yDiff).to.equal(8);
   });
 
   it('should reset the position of the ball to canvas width if it goes off the right side', () => {
@@ -95,7 +113,16 @@ describe('Horizonal Collision', () => {
 
     ball.handleHorizontalBoundaryCollision();
 
-    expect(ball.xDiff).to.equal(10);
+    expect(ball.xDiff).to.equal(8);
+  });
+
+  it('should detect collision when the ball is partially over the left wall', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 5, 50, 0, -10);
+
+    ball.handleHorizontalBoundaryCollision();
+
+    expect(ball.xDiff).to.equal(8);
   });
 
   it('should not reverse trajectory when the ball hits the left wall, and has reversed', () => {
@@ -105,6 +132,15 @@ describe('Horizonal Collision', () => {
     ball.handleHorizontalBoundaryCollision();
 
     expect(ball.xDiff).to.equal(10);
+  });
+
+  it('should slow velocity on both axis on left wall collision', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 0, 50, 90, -10);
+
+    ball.handleHorizontalBoundaryCollision();
+
+    expect(ball.yDiff).to.equal(-8);
   });
 
   it('should reset the position of the ball to 0 if it goes off the left side', () => {
@@ -124,7 +160,16 @@ describe('Vertical Collision', () => {
 
     ball.handleVerticalBoundaryCollision();
 
-    expect(ball.yDiff).to.equal(10);
+    expect(ball.yDiff).to.equal(8);
+  });
+
+  it('should detect collision when the ball is partially over the top', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 50, 0, 90, -10);
+
+    ball.handleVerticalBoundaryCollision();
+
+    expect(ball.yDiff).to.equal(8);
   });
 
   it('should not reverse trajectory when the ball hits the top, and has reversed', () => {
@@ -134,6 +179,15 @@ describe('Vertical Collision', () => {
     ball.handleVerticalBoundaryCollision();
 
     expect(ball.yDiff).to.equal(10);
+  });
+
+  it('should slow velocity on both axis on top wall collision', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 50, 0, 180, -10);
+
+    ball.handleVerticalBoundaryCollision();
+
+    expect(ball.xDiff).to.equal(8);
   });
 
   it('should reset the position of the ball to canvas top if it goes above the top', () => {
@@ -151,7 +205,16 @@ describe('Vertical Collision', () => {
 
     ball.handleVerticalBoundaryCollision();
 
-    expect(ball.yDiff).to.equal(-10);
+    expect(ball.yDiff).to.equal(-8);
+  });
+
+  it('should detect collision when the ball is partially under the bottom', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 50, 95, 90, 10);
+
+    ball.handleVerticalBoundaryCollision();
+
+    expect(ball.yDiff).to.equal(-8);
   });
 
   it('should not reverse trajectory when the ball hits the bottom, and has reversed', () => {
@@ -161,6 +224,15 @@ describe('Vertical Collision', () => {
     ball.handleVerticalBoundaryCollision();
 
     expect(ball.yDiff).to.equal(-10);
+  });
+
+  it('should slow velocity on both axis on bottom wall collision', () => {
+    const scene = helpers.getMockScene(0, 100, 0, 100);
+    const ball = new Ball(scene, 50, 100, 180, 10);
+
+    ball.handleVerticalBoundaryCollision();
+
+    expect(ball.xDiff).to.equal(-8);
   });
 
   it('should reset the position of the ball to canvas bottom if it falls below the bottom', () => {

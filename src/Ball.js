@@ -25,6 +25,7 @@ export default class Ball {
     this.xDiff = this.velocity * Math.cos(Ball.degreesToRadians(this.angle));
     this.yDiff = this.velocity * Math.sin(Ball.degreesToRadians(this.angle));
     this.gravity = 0.3;
+    this.dampeningFactor = 0.8;
   }
 
   /**
@@ -46,42 +47,46 @@ export default class Ball {
   }
 
   /**
-   * Handle a collision with the horizontal walls,
+   * Handle a collision with the walls on the horizontal axis,
    * by reversing the trajectory of the ball
    */
   handleHorizontalBoundaryCollision() {
     const boundaries = this.scene.getDimensions();
 
-    if (this.x <= boundaries.left && this.xDiff < 0) {
+    if (this.x <= boundaries.left + this.radius && this.xDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.left + this.radius;
-      this.xDiff = -this.xDiff;
+      this.xDiff = -this.xDiff * this.dampeningFactor;
+      this.yDiff *= this.dampeningFactor;
     }
 
-    if (this.x >= boundaries.right && this.xDiff > 0) {
+    if (this.x >= boundaries.right - this.radius && this.xDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.right - this.radius;
-      this.xDiff = -this.xDiff;
+      this.xDiff = -this.xDiff * this.dampeningFactor;
+      this.yDiff *= this.dampeningFactor;
     }
   }
 
   /**
-   * Handle a collision with the vertical walls,
+   * Handle a collision with the walls on the vertical axis,
    * by reversing the trajectory of the ball
    */
   handleVerticalBoundaryCollision() {
     const boundaries = this.scene.getDimensions();
 
-    if (this.y <= boundaries.top && this.yDiff < 0) {
+    if (this.y <= boundaries.top + this.radius && this.yDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.top + this.radius;
-      this.yDiff = -this.yDiff;
+      this.yDiff = -this.yDiff * this.dampeningFactor;
+      this.xDiff *= this.dampeningFactor;
     }
 
-    if (this.y >= boundaries.bottom && this.yDiff > 0) {
+    if (this.y >= boundaries.bottom - this.radius && this.yDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.bottom - this.radius;
-      this.yDiff = -this.yDiff;
+      this.yDiff = -this.yDiff * this.dampeningFactor;
+      this.xDiff *= this.dampeningFactor;
     }
   }
 
