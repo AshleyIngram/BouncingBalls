@@ -2,9 +2,20 @@ Bouncing Balls
 ==============
 An implementation of the [Bouncing Balls interview question by H4](https://github.com/hfour/exercises/tree/master/bouncing-balls).
 
+Thanks, and I hope you enjoy reviewing my submission!
+
 Usage
 -------
-Instructions on how to build/run the Bouncing Balls project.
+My Bouncing Balls submission can be built from source by:
+
+    1. Checking out the repository.
+    2. Restoring NPM packages using ``npm restore``
+    3. Building the project using ``npm run build``
+    4. Opening the index.html file in the 'dist' directory
+
+A pre-compiled submission can be found in the dist directory, in case the build workflow does not run. Simply run the 'index.html' file.
+
+Alternatively, visit an uploaded version located [here](https://h4submission.blob.core.windows.net/balls/index.html).
 
 Tests
 -----
