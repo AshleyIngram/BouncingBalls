@@ -19,7 +19,7 @@ export default class BowlingBall extends Ball {
   constructor(scene, initialX, initialY, initialAngle, initialVelocity) {
     super(scene, initialX, initialY, initialAngle, initialVelocity);
 
-    this.mass = 0.2;
+    this.dampeningFactor = 0.2;
     this.radius = 21;
   }
 }
