@@ -26,6 +26,7 @@ export default class Ball {
     this.yDiff = this.velocity * Math.sin(Ball.degreesToRadians(this.angle));
     this.gravity = 0.3;
     this.mass = 0.8;
+    this.color = '000000';
   }
 
   /**
@@ -145,6 +146,6 @@ export default class Ball {
     this.handleHorizontalBoundaryCollision();
     this.handleVerticalBoundaryCollision();
 
-    this.scene.drawCircle(this.x, this.y, this.radius);
+    this.scene.drawCircle(this.x, this.y, this.radius, this.color);
   }
 }

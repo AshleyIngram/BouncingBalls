@@ -1,5 +1,9 @@
 import Scene from './Scene';
 import Ball from './Ball';
+import BowlingBall from './BowlingBall';
+import BasketBall from './BasketBall';
+import Flubber from './Flubber';
+import TennisBall from './TennisBall';
 
 /**
  * The entry point to the Bouncing Ball
@@ -13,9 +17,11 @@ class BouncingBallApplication {
   constructor() {
     const canvas = document.getElementById('canvas');
     const collisionCheckbox = document.getElementById('collision');
+    const ballTypeDropdown = document.getElementById('ballType');
     const scene = new Scene(canvas);
     const fps = 1000 / 120;
 
+    this.ballType = 'default';
     this.balls = [];
     this.ballCollisionEnabled = false;
 
@@ -23,8 +29,12 @@ class BouncingBallApplication {
       this.createBall(scene, evt);
     });
 
-    collisionCheckbox.addEventListener('change', (event) => {
+    collisionCheckbox.addEventListener('change', (evt) => {
       this.ballCollisionEnabled = event.target.checked;
+    });
+
+    ballTypeDropdown.addEventListener('change', (evt) => {
+      this.ballType = evt.target.value;
     });
 
     setInterval(() => {
@@ -70,7 +80,28 @@ class BouncingBallApplication {
   createBall(scene, evt) {
     const angle = Math.random() * 360;
     const velocity = Math.random() * 30;
-    const ball = new Ball(scene, evt.clientX, evt.clientY, angle, velocity);
+    let ball = {};
+
+    switch (this.ballType) {
+      case 'tennis':
+        ball =
+          new TennisBall(scene, evt.clientX, evt.clientY, angle, velocity);
+        break;
+      case 'basketball':
+        ball = new BasketBall(scene, evt.clientX, evt.clientY, angle, velocity);
+        break;
+      case 'bowling':
+        ball =
+            new BowlingBall(scene, evt.clientX, evt.clientY, angle, velocity);
+        break;
+      case 'flubber':
+        ball = new Flubber(scene, evt.clientX, evt.clientY, angle, velocity);
+        break;
+      default:
+        ball = new Ball(scene, evt.clientX, evt.clientY, angle, velocity);
+        break;
+    }
+
     this.balls.push(ball);
   }
 }
