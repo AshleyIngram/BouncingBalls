@@ -30,3 +30,11 @@ The following dependencies were used in creating this project:
  - **Mocha** - Mocha is a Javascript unit testing framework.
  - **Chai** - Chai is a Javascript assertion library for testing.
  - **ESLint** - ESLint is used to ensure all code has a consistent style. The [Google ESLint ruleset](https://github.com/google/eslint-config-google) is used.
+
+Experiments
+----------
+Experimental functionality (that is out of scope of the original spec) can be found in the 'experiments' branch. This functionality is:
+- The ability to change the _type_ of the ball, which changes the characteristics (size, colour, and bounciness).
+- The ability to turn on/off collision between different balls.
+
+This functionality is more prototypal, and less well tested.
