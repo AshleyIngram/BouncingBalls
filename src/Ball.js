@@ -25,7 +25,7 @@ export default class Ball {
     this.xDiff = this.velocity * Math.cos(Ball.degreesToRadians(this.angle));
     this.yDiff = this.velocity * Math.sin(Ball.degreesToRadians(this.angle));
     this.gravity = 0.3;
-    this.mass = 0.8;
+    this.dampeningFactor = 0.8;
     this.color = '000000';
   }
 
@@ -57,15 +57,15 @@ export default class Ball {
     if (this.x <= boundaries.left + this.radius && this.xDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.left + this.radius;
-      this.xDiff = -this.xDiff * this.mass;
-      this.yDiff *= this.mass;
+      this.xDiff = -this.xDiff * this.dampeningFactor;
+      this.yDiff *= this.dampeningFactor;
     }
 
     if (this.x >= boundaries.right - this.radius && this.xDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.x = boundaries.right - this.radius;
-      this.xDiff = -this.xDiff * this.mass;
-      this.yDiff *= this.mass;
+      this.xDiff = -this.xDiff * this.dampeningFactor;
+      this.yDiff *= this.dampeningFactor;
     }
   }
 
@@ -79,15 +79,15 @@ export default class Ball {
     if (this.y <= boundaries.top + this.radius && this.yDiff < 0) {
       // Add the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.top + this.radius;
-      this.yDiff = -this.yDiff * this.mass;
-      this.xDiff *= this.mass;
+      this.yDiff = -this.yDiff * this.dampeningFactor;
+      this.xDiff *= this.dampeningFactor;
     }
 
     if (this.y >= boundaries.bottom - this.radius && this.yDiff > 0) {
       // Subtract the radius, to ensure the ball isn't only half in scene
       this.y = boundaries.bottom - this.radius;
-      this.yDiff = -this.yDiff * this.mass;
-      this.xDiff *= this.mass;
+      this.yDiff = -this.yDiff * this.dampeningFactor;
+      this.xDiff *= this.dampeningFactor;
     }
   }
 
@@ -125,16 +125,9 @@ export default class Ball {
       this.y -= this.yDiff;
 
       this.xDiff = Ball.elasticCollision(
-          this.xDiff, otherBall.xDiff, this.mass, otherBall.mass);
+          this.xDiff, otherBall.xDiff, this.radius, otherBall.dampeningFactor);
       this.yDiff = Ball.elasticCollision(
-          this.yDiff, otherBall.yDiff, this.mass, otherBall.mass);
-
-      // Redirect the other ball too. We won't perform collision detection
-      // for the same 2 balls twice, so we need to make sure it moves too
-      otherBall.xDiff = Ball.elasticCollision(
-          otherBall.xDiff, this.xDiff, otherBall.mass, this.mass);
-      otherBall.yDiff = Ball.elasticCollision(
-          otherBall.yDiff, this.yDiff, otherBall.mass, this.mass);
+          this.yDiff, otherBall.yDiff, this.radius, otherBall.dampeningFactor);
     }
   }
 

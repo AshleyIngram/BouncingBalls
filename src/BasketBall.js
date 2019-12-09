@@ -19,7 +19,7 @@ export default class BasketBall extends Ball {
   constructor(scene, initialX, initialY, initialAngle, initialVelocity) {
     super(scene, initialX, initialY, initialAngle, initialVelocity);
 
-    this.mass = 0.9;
+    this.dampeningFactor = 0.9;
     this.radius = 24;
     this.color = 'CF5300';
   }
