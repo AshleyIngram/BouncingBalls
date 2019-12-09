@@ -5,6 +5,7 @@
             body { overflow-y: hidden }
             #container { margin: auto; height: 90%; width: 90%; }
             #canvas { border: solid 1px #000000; height: 95%; width: 95%; text-align: right }
+            #ballTypeHelp { font-style: italic; font-size: small; }
         </style>
         <title>Bouncing Balls</title>
     </head>
@@ -14,6 +15,15 @@
             <div id="controls">
                 <form>
                     <label for="collision">Ball Collision: <input type="checkbox" name="collision" id="collision"></label>
+                    <label for="ballType">Ball Type:
+                        <select name="ballType" id="ballType">
+                            <option value="default">Default Ball</option>
+                            <option value="tennis">Tennis Ball</option>
+                            <option value="basketball">Basketball</option>
+                            <option value="bowling">Bowling Ball</option>
+                            <option value="flubber">Flubber</option>
+                        </select>
+                    </label>
                 </form>
             </div>
         </div>

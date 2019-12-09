@@ -105,12 +105,14 @@ export default class Scene {
    * @param {number} x The X position to draw the circle
    * @param {number} y The Y position to draw the circle
    * @param {number} radius The radius of the circle
+   * @param {string} color The hex code color of the circle
    */
-  drawCircle(x, y, radius) {
+  drawCircle(x, y, radius, color) {
     const renderContext = this.canvas.getContext('2d');
     renderContext.beginPath();
     const adjustedX = this.getAdjustedXPosition(x);
     const adjustedY = this.getAdjustedYPosition(y);
+    renderContext.fillStyle = '#' + color;
     renderContext.arc(adjustedX, adjustedY, radius, 0, 2 * Math.PI);
     renderContext.fill();
     renderContext.closePath();
